@@ -1,0 +1,184 @@
+﻿{%extends "header.html"%}
+{%set active_page = 'solve'%}
+
+
+{% block javascript %}
+<script>
+
+    var pContent = document.getElementById("pt");
+    var R = document.querySelector("#results");
+    var clone = document.importNode(pContent.content, true);
+
+    R.appendChild(clone);
+
+    function GetAnswers(str) {
+        //This function is to call results server code and get answers - str is string
+
+
+        //Add the loading symbol
+        var R = document.getElementById("results");
+        while (R.firstChild) {
+            R.removeChild(R.firstChild);
+        } //Remove  - no results
+
+        var ld = document.getElementById("loadingScreen");
+        var ldClone = document.importNode(ld.content, true);
+
+        R.appendChild(ldClone);
+
+        //GET ANSWERS
+
+
+        //Get template and load data
+
+
+
+        //Then remove loading symbols
+
+        //Add to div
+
+
+    }
+
+    function GetSuggestions() {
+        //Periodically called to get suggestions
+
+
+        //Load the answers
+
+
+        //Use the following snippet to add answers
+
+        //Make a holder for card elements(i.e suggestions)
+        var holder = document.getElementById("cardHolderTemp");
+        var holderClone = document.importNode(holder.content, true);
+        holderGod = holderClone.getElementById("cardHolder");
+
+
+
+        //Get the template
+        var card = document.getElementById("suggestions");
+
+        //Make a clone for each suggestion - this can come in a for loop
+        for (i = 0; i < 5; i++) {
+            var cardClone = document.importNode(card.content, true);
+
+            var cardContent = cardClone.getElementById("eqName");
+            var cardDesc = cardClone.getElementById("eqSuggest");
+            cardContent.innerHTML = "aX + b = c";
+            cardDesc.innerHTML = "A linear equation you can use";
+
+            //Add each suggestion to the Holder
+
+            holderGod.appendChild(cardClone);
+        }
+        //end - for loop
+
+        //Remove old stuff
+        var R = document.getElementById("results");
+        while (R.firstChild) {
+            R.removeChild(R.firstChild);
+        } //Remove  - no results
+
+
+        R.appendChild(holderClone);
+
+    }
+
+
+    function modalToggleShow() {
+
+        $('.ui.modal')
+            .modal('show')
+            ;
+    }
+
+    function modalToggleHide() {
+
+        $('.ui.modal')
+            .modal('hide')
+            ;
+    }
+
+    function uploadImage() {
+        modalToggleHide();
+    }
+
+    
+
+</script>
+{% endblock %}
+
+{%block content%}
+
+
+<div class="ui segment" style="background-color:#3a4750;margin-left:15%;margin-right:15%;margin-top:6%; border:#303841 5px solid;">
+    <div class="ui fluid icon inverted large input">
+        <input type="text" placeholder="Enter your Equations here" style="background-color:#3a4750;color:#eeeeee;">
+        <div class="ui huge buttons">
+            <i class="inverted circular camera link icon button" onclick="modalToggleShow();" style="margin-right:5%;"></i>
+            <i class="inverted circular chevron circle right link icon button " onclick="GetAnswers();"></i>
+        </div>   
+    </div>
+</div>
+
+<div></div>
+
+<div class="ui placeholder segment" style="margin-top:1%;margin-left:15%;margin-right:15%;margin-bottom:5%; border:#303841 5px solid;background-color:#e6e6d4;" id="results">
+
+</div>
+
+
+<div class="ui modal">
+    <div class="header">Upload an Image</div>
+    <div class="content">
+        <form class="ui form">
+            <div class="field">
+                <label>
+                    Select Image File
+                </label>
+                <input class="button" type="file" name="pic" accept="image/*" id="picId">
+            </div>
+            <button class="ui button" type="submit" onsubmit="uploadImage();">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<template id="pt">
+    <h2 class="ui icon header">
+        <i class="superscript icon"></i>
+        <div class="content">
+            Nothing for Now
+        </div>
+    </h2>
+</template>
+
+<template id="suggestions">
+    <div class="ui raised card link" onclick="GetAnswers();">
+        <div class="content">
+            <div class="header" id="eqName"></div>
+            <div class="description" id="eqSuggest">
+
+            </div>
+        </div>
+        <div class="content">
+            <i class="share icon"></i>
+        </div>
+
+    </div>
+</template>
+
+<template id="cardHolderTemp">
+    <div class="ui stackable cards" id="cardHolder">
+
+    </div>
+</template>
+
+<template id="loadingScreen">
+    <div class="ui active dimmer">
+        <div class="ui medium text loader">Loading</div>
+    </div>
+</template>
+
+{%endblock%}

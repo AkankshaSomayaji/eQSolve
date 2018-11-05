@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="/static/content/Semantic-UI-CSS-master/semantic.min.css" />
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+    <script src="/static/content/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.item.bt').click(function () {
+                $('.active').removeClass('active')
+                $(this).addClass("active");
+            });
+        });
+    </script>
+    
+</head>
+<body style="background: {{backgroundColor}}">
+    <!--style="background-color:#3c6382;" style="background-color:#ff7f50"kyoto=> #c21500, #ffc500 , sunrise-second color = #f09819//linear-gradient(to top,#ff512f,#ff7f50 );-->
+    <div class="ui inverted fixed segment" style="background-color:{{headerColor}};margin-top:-30;">
+        <div id="header" style="background-color:{{headerColor}};" class="ui secondary inverted large menu">
+            <div class="ui item"><img src="/static/images/logo.png" /></div>
+            <a class="green item bt {{'active' if active_page == 'home' else ''}}" href="{{url_for('index')}}">Home</a>
+            <a class="green item bt {{'active' if active_page == 'solve' else ''}}" href="{{url_for('solve')}}">Solve</a>
+            <a class="green item bt {{'active' if active_page == 'ranking' else ''}}" href="#">Ranking</a>
+            <a class="green item bt {{'active' if active_page == 'explore' else ''}}" href="#">Explore</a>
+            <div class="right item">
+                <div class="ui search">
+                    <input type="text" class="prompt" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        {%block content%}{% endblock %}
+
+    <div class="ui inverted vertical footer segment" style="position:absolute;bottom:0;width:100%;">
+        <div class="ui container">
+            eQSolve - {{year}}. All Rights Reserved
+        </div>
+    </div>
+
+    </div>
+
+    {% block javascript %} {% endblock %}
+
+
+</body>
+</html>
