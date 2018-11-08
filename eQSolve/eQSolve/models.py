@@ -1,4 +1,3 @@
-
 from eQSolve import db
 from sqlalchemy.schema import PrimaryKeyConstraint
 from flask_login import UserMixin

@@ -2,61 +2,61 @@
 {% set active_page = 'home'%}
 
 {% block content %}
-    <div class="ui inverted placeholder huge segment" style="margin-left:25%;margin-right:25%;margin-top:2%;">
-        <div class="ui inverted icon header">
-            <i class="inverted idea icon link "></i>
-            Get Started with your Math
+<div class="ui inverted placeholder huge segment" style="margin-left:25%;margin-right:25%;margin-top:2%;">
+    <div class="ui inverted icon header">
+        <i class="inverted idea icon link "></i>
+        Get Started with your Math
+    </div>
+    <div class="inline">
+        <a class="ui inverted green large button" href="{{url_for('solve')}}">Equations</a>
+        <a class="ui inverted green large button" href="#">Explore</a>
+    </div>
+</div>
+
+<div class="ui three column grid" style="margin-top:5%;margin-bottom:4%;">
+    <div class="column">
+        <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:10%;margin-right:15%;">
+            <h2 class="ui icon header">
+                <i class="superscript icon"></i>
+                <div class="content">
+                    Equations
+                    <div class="sub header">
+                        Solving Equations have never been easier
+                    </div>
+                </div>
+            </h2>
         </div>
-        <div class="inline">
-            <a class="ui inverted green large button" href="{{url_for('solve')}}">Equations</a>
-            <a class="ui inverted green large button" href="#">Explore</a>
+    </div>
+    <div class="column">
+        <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:15%;margin-right:15%;">
+            <h2 class="ui icon header">
+                <i class="photo icon"></i>
+                <div class="content">
+                    Photo-Solve
+                    <div class="sub header">
+                        Upload a photo of the equation to solve!
+                    </div>
+                </div>
+            </h2>
         </div>
     </div>
 
-    <div class="ui three column grid" style="margin-top:5%;margin-bottom:4%;">
-        <div class="column">
-            <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:10%;margin-right:15%;">
-                <h2 class="ui icon header">
-                    <i class="superscript icon"></i>
-                    <div class="content">
-                        Equations
-                        <div class="sub header">
-                            Solving Equations have never been easier
-                        </div>
+    <div class="column">
+        <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:15%;margin-right:15%;">
+            <h2 class="ui icon header">
+                <i class="calculator icon"></i>
+                <div class="content">
+                    Calculate
+                    <div class="sub header">
+                        One place for all your Math needs
                     </div>
-                </h2>
-            </div>
+                </div>
+            </h2>
         </div>
-        <div class="column">
-            <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:15%;margin-right:15%;">
-                <h2 class="ui icon header">
-                    <i class="photo icon"></i>
-                    <div class="content">
-                        Photo-Solve
-                        <div class="sub header">
-                            Upload a photo of the equation to solve!
-                        </div>
-                    </div>
-                </h2>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:15%;margin-right:15%;">
-                <h2 class="ui icon header">
-                    <i class="calculator icon"></i>
-                    <div class="content">
-                        Calculate
-                        <div class="sub header">
-                            One place for all your Math needs
-                        </div>
-                    </div>
-                </h2>
-            </div>
-        </div>
-        
-        
-        
     </div>
+
+
+
+</div>
 
 {% endblock %}

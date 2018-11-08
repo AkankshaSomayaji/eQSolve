@@ -29,4 +29,3 @@ def solve():
         backgroundColor = "#d72323",
         headerColor = "#2a363b"
         )
-

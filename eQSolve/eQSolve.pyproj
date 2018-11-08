@@ -28,9 +28,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="eQSolve\Config.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eQSolve\models.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eQSolve\views.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="eQSolve\__init__.py" />
-    <Compile Include="eQSolve\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="eQSolve\" />
