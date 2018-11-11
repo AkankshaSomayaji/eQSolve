@@ -34,6 +34,7 @@
     <Compile Include="eQSolve\models.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eQSolve\server.py" />
     <Compile Include="eQSolve\views.py">
       <SubType>Code</SubType>
     </Compile>
@@ -228,6 +229,7 @@
     <Content Include="eQSolve\static\images\logo.png" />
     <Content Include="eQSolve\templates\header.html" />
     <Content Include="eQSolve\templates\main.html" />
+    <Content Include="eQSolve\templates\om.html" />
     <Content Include="eQSolve\templates\solve.html" />
     <Content Include="requirements.txt" />
     <Content Include="eQSolve\static\content\bootstrap.css" />
