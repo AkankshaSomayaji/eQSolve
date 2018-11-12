@@ -1,10 +1,20 @@
-{% extends "layout.html" %}
+{%extends "header.html"%}
+{%set active_page = 'about'%}
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
-
-<p>Use this area to provide additional information.</p>
+<div class="ui huge placeholder segment" style="background-image:url('../static/images/math2.jpg');background-size:cover;margin-left:5%;margin-right:5%;margin-top:2%;">
+    <div class="ui inverted icon header">
+        Meet Our Team !!!!!
+    </div>
+    <div class="inline">
+        <p class="ui inverted green large button">Akhil</p>
+        <p class="ui inverted green large button">Alekhya</p>
+        <p class="ui inverted green large button">Akanksha</p>
+    </div>
+    <div class="ui inverted icon header">
+        We are just a bunch of crazy-lazy youths !!!!!
+    </div>
+</div>
 
 {% endblock %}

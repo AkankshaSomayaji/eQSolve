@@ -29,3 +29,15 @@ def solve():
         backgroundColor = "#d72323",
         headerColor = "#2a363b"
         )
+
+@app.route('/about')
+def about():
+    """Renders the main page"""
+    return render_template(
+        'about.html',
+        title='eQSolve',
+        year = datetime.now().year,
+        backgroundColor = "#d72323",
+        headerColor = "#2a363b"
+        )
+
