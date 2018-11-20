@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<title>XHR AJAX</title>
+<script type="text/javascript">
+	var xhr = new XMLHttpRequest();
+	function getVideo()
+	  {
+		//alert("In the function");
+		
+		xhr.responseType="blob";
+		xhr.onreadystatechange = function()
+		{
+			if(xhr.readyState == 4 && xhr.status== 200)
+			{
+				data = xhr.response;
+				
+				alert(data);
+				vid = document.createElement("video");
+				vid.controls = true;
+				
+				//To create a dummy URL on the browser side.
+				vid.src = URL.createObjectURL(data);
+				
+				//Add the video to the body
+				document.body.appendChild(vid);
+			}
+		}
+        
+		
+        xhr.open('POST',"calc", true);
+		xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        value=document.getElementById('txt').value;
+		alert(value);
+        xhr.send("count="+value);
+	}
+	
+	
+	
+	
+
+</script>
+</head>
+<body>
+<input type="text" id="txt"  ><br>
+<input type="button" id="btn-post" onclick="getVideo();">More!!</button>
+</body>
+</html>
