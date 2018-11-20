@@ -1,0 +1,24 @@
+﻿{%extends "header.html"%}
+{%set active_page = 'solve'%}
+
+
+
+
+
+{%block content%}
+    
+
+<div class="ui segment" style="background-color:#3a4750;margin-left:15%;margin-right:15%;margin-top:6%; border:#303841 5px solid;">
+
+        <div class="ui huge buttons">
+            <i class="inverted circular button" onclick="modalToggleShow();" style="margin-right:5%;">Easy</i>
+            <i class="inverted circular button " onclick="GetSuggestions();">Hard</i>
+
+    </div>
+</div>
+
+<div class="ui placeholder segment" style="margin-top:1%;margin-left:15%;margin-right:15%;margin-bottom:5%; border:#303841 5px solid;background-color:#e6e6d4;" id="results">
+
+</div>
+
+    {% endblock %}

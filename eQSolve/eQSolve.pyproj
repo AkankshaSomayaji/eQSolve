@@ -227,6 +227,7 @@
     <Content Include="eQSolve\static\content\Semantic-UI-CSS-master\themes\default\assets\fonts\outline-icons.woff2" />
     <Content Include="eQSolve\static\content\Semantic-UI-CSS-master\themes\default\assets\images\flags.png" />
     <Content Include="eQSolve\static\images\logo.png" />
+    <Content Include="eQSolve\templates\explore.html" />
     <Content Include="eQSolve\templates\header.html" />
     <Content Include="eQSolve\templates\main.html" />
     <Content Include="eQSolve\templates\om.html" />
