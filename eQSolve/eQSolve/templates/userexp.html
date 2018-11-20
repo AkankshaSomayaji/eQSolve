@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Let's solve the equations</title>
+
+	<script type="text/javascript">
+      function do_ajax()
+	  {
+		count=count+1;
+		var req = new XMLHttpRequest();
+        req.onreadystatechange = function()
+        {
+          if(this.readyState == 4 && this.status == 200) {
+            result.innerHTML = this.responseText;
+          } else {
+            result.innerHTML = "Could not fetch from the database";
+          }
+        }
+		
+        req.open('POST',"calc", true);
+        req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+		
+        req.send("count="+count);
+	}
+	</script>
+	</head>
+	<body>
+		<p>Hi this  </p>
+		<input type="button" id="btn-post" onclick="do_ajax();">More!!</button>
+	</body>
+</html>	

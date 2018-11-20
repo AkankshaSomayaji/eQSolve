@@ -31,13 +31,14 @@ def solve():
         )
 
 
-@app.route('/explore')
-def explore():
-    """renders the explore page"""
+@app.route('/about')
+def about():
+    """Renders the main page"""
     return render_template(
-        'explore.html',
+        'about.html',
         title='eQSolve',
         year = datetime.now().year,
         backgroundColor = "#d72323",
         headerColor = "#2a363b"
         )
+
