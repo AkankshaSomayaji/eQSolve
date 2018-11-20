@@ -5,9 +5,32 @@
 {% block javascript %}
 <script>
 
+
+    function putAnswers() {
+        if (this.readyState == 4 && this.status == 200) {
+            txt = this.responseText;
+
+            //Add the loading symbol
+            var R = document.getElementById("results");
+            while (R.firstChild) {
+                R.removeChild(R.firstChild);
+            } //Remove  - no results
+
+            var ld = document.getElementById("answers");
+            var ldClone = document.importNode(ld.content, true);
+
+            var data = ldClone.getElementById("ansdata");
+            data.innerHTML = txt;
+
+            R.appendChild(ldClone);
+        }
+    }
+
     var pContent = document.getElementById("pt");
     var R = document.querySelector("#results");
     var clone = document.importNode(pContent.content, true);
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = putAnswers
 
     R.appendChild(clone);
 
@@ -27,6 +50,10 @@
         R.appendChild(ldClone);
 
         //GET ANSWERS
+        eqtxt = document.getElementById("eq");
+        req.open('POST', "solveeq", true);
+        req.send("eqn=" + eqtxt.innerHTML);
+
 
 
         //Get template and load data
@@ -114,10 +141,10 @@
 
 <div class="ui segment" style="background-color:#3a4750;margin-left:15%;margin-right:15%;margin-top:6%; border:#303841 5px solid;">
     <div class="ui fluid icon inverted large input">
-        <input type="text" placeholder="Enter your Equations here" style="background-color:#3a4750;color:#eeeeee;">
+        <input type="text" id="eq" placeholder="Enter your Equations here" style="background-color:#3a4750;color:#eeeeee;">
         <div class="ui huge buttons">
             <i class="inverted circular camera link icon button" onclick="modalToggleShow();" style="margin-right:5%;"></i>
-            <i class="inverted circular chevron circle right link icon button " onclick="GetSuggestions();"></i>
+            <i class="inverted circular chevron circle right link icon button " onclick="GetAnswers();"></i>
         </div>
     </div>
 </div>
@@ -150,6 +177,14 @@
         <i class="superscript icon"></i>
         <div class="content">
             Nothing for Now
+        </div>
+    </h2>
+</template>
+
+<template id="answers">
+    <h2 class="ui icon header">
+        <div class="content" id="ansdata">
+            
         </div>
     </h2>
 </template>

@@ -3,8 +3,9 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request
 from eQSolve import app
+from eQSolve import solveeq
 
 
 
@@ -42,3 +43,17 @@ def about():
         headerColor = "#2a363b"
         )
 
+@app.route('/solveeq', methods=['GET','POST'])
+def solveeq():
+    print('yo')
+    if request.method == "POST":
+        eqs=request.form["eqns"]
+        print('helllo')
+        print(eqs)
+        if ',' in eqs:
+            eq1,eq2=eqs.split(',')
+            res=solveeq.calcy(eq1,eq2)
+        else:
+            eq=eqs
+            res=solveeq.quad(eq)
+    return(res)

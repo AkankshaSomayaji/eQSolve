@@ -35,6 +35,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eQSolve\server.py" />
+    <Compile Include="eQSolve\solveeq.py" />
     <Compile Include="eQSolve\views.py">
       <SubType>Code</SubType>
     </Compile>
