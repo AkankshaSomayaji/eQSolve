@@ -1,7 +1,237 @@
 ﻿{%extends "header.html"%}
-{%set active_page = 'solve'%}
+{%set active_page = 'explore'%}
+
+{% block javascript %}
+    <script>
 
 
+        function GetSuggestions() {
+            //Periodically called to get suggestions
+
+
+            //Load the answers
+
+
+            //Use the following snippet to add answers
+
+            //Make a holder for card elements(i.e suggestions)
+            var holder = document.getElementById("cardHolderTemp");
+            var holderClone = document.importNode(holder.content, true);
+            holderGod = holderClone.getElementById("cardHolder");
+
+
+
+            //Get the template
+            var card = document.getElementById("suggestions_2");
+
+            //Make a clone for each suggestion - this can come in a for loop
+            for (i = 0; i < 5; i++) {
+                var cardClone = document.importNode(card.content, true);
+
+                var cardContent = cardClone.getElementById("eqName");
+                var cardDesc = cardClone.getElementById("eqSuggest");
+                cardContent.innerHTML = "aX + b = c";
+                cardDesc.innerHTML = "A linear equation - Click To see Solution";
+
+                //Add each suggestion to the Holder
+
+                holderGod.appendChild(cardClone);
+            }
+            //end - for loop
+            
+            var R = document.getElementById("results");
+            //Remove old stuff
+            while (R.firstChild) {
+                R.removeChild(R.firstChild);
+            } //Remove  - no results
+            R.appendChild(holderClone);
+            
+
+        }
+
+        
+
+        xhr = new XMLHttpRequest();
+        
+        
+
+        function getRand() {
+            xhr.onreadystatechange = putData;
+            xhr.open('GET', '/linear/rand', true);
+            xhr.send();
+        }
+
+        function getLinear() {
+            xhr.onreadystatechange = putData2;
+            xhr.open('GET', '/linear', true);
+            xhr.send();
+        }
+
+        function getQuad() {
+            console.log("quad clicked")
+            xhr.onreadystatechange = putData2;
+            xhr.open('GET', '/quad', true);
+            xhr.send();
+        }
+
+
+        function putData() {
+            if (this.readyState == 4 && this.status == 200) {
+                txt = this.responseText;
+                
+
+                var R = document.getElementById("results");
+                while (R.firstChild) {
+                    R.removeChild(R.firstChild);
+                }
+
+                a = txt.split(",")
+                
+                
+                //Make a holder for card elements(i.e suggestions)
+                var holder = document.getElementById("cardHolderTemp");
+                var holderClone = document.importNode(holder.content, true);
+                holderGod = holderClone.getElementById("cardHolder");
+
+
+
+                //Get the template
+                var card = document.getElementById("suggestions_2");
+
+                //Make a clone for each suggestion - this can come in a for loop
+
+                var cardClone = document.importNode(card.content, true);
+
+                var cardContent = cardClone.getElementById("eqName");
+                var cardDesc = cardClone.getElementById("eqSuggest");
+                if (a[1] == "NA") {
+                    a[1] = ""
+                }
+                cardContent.innerHTML = a[0]+",</br >"+a[1];
+                cardDesc.innerHTML = a[2] + "&nbsp;&nbsp;&nbsp;" +a[3] ;
+
+                //Add each suggestion to the Holder
+
+                holderGod.appendChild(cardClone);
+                //end - for loop
+                
+                var R = document.getElementById("results");
+                //Remove old stuff
+                while (R.firstChild) {
+                    R.removeChild(R.firstChild);
+                } //Remove  - no results
+                R.appendChild(holderClone);
+            }
+            
+        }
+
+        function putData2() {
+            if (this.readyState == 4 && this.status == 200) {
+                txt = this.responseText;
+
+                var R = document.getElementById("results");
+                while (R.firstChild) {
+                    R.removeChild(R.firstChild);
+                }
+
+                
+                a = txt.split(",");
+                
+
+                var holder = document.getElementById("cardHolderTemp2");
+                var holderClone = document.importNode(holder.content, true);
+                holderGod = holderClone.getElementById("cardHolder");
+
+                var card = document.getElementById("suggestions");
+
+                ct = 0
+
+                //Make a clone for each suggestion - this can come in a for loop
+                for (i = 0; i < 4; i++) {
+                    var cardClone = document.importNode(card.content, true);
+
+                    var cardContent = cardClone.getElementById("eqName");
+                    var cardDesc = cardClone.getElementById("eqSuggest");
+                    var cardInfo = cardClone.getElementById("hiddenContent");
+                    cardContent.innerHTML = a[ct] + ",</br >";
+                    if (a[ct+1] != "NA") {
+                        cardContent.innerHTML += a[ct + 1];
+                    }
+                    cardDesc.innerHTML = "A linear equation - Click To see Solution";
+                    cardInfo.innerHTML = a[ct+2]+","+a[ct+3]
+
+                    ct += 4;
+
+                    //Add each suggestion to the Holder
+
+                    holderGod.appendChild(cardClone);
+                }
+
+                var R = document.getElementById("results");
+                //Remove old stuff
+                while (R.firstChild) {
+                    R.removeChild(R.firstChild);
+                } //Remove  - no results
+                R.appendChild(holderClone);
+
+
+            }
+        }
+
+        function getAnswers(e) {
+            
+            var hc = e.querySelector("#hiddenContent");
+
+            txt = hc.innerHTML;
+            txt2 = e.querySelector(".header").innerHTML;
+
+            var R = document.getElementById("results");
+            while (R.firstChild) {
+                R.removeChild(R.firstChild);
+            } //Remove  - no results
+
+
+            var ld = document.getElementById("answers");
+            var ldClone = document.importNode(ld.content, true);
+            holderGod = ldClone.getElementById("cardHolder");
+
+            console.log(txt);
+            console.log(txt2);
+            ans = txt.split(",");
+
+            var card = document.getElementById("suggestions3");
+
+            var cardClone = document.importNode(card.content, true);
+            var cardContent = cardClone.getElementById("eqName");
+            var cardDesc = cardClone.getElementById("eqSuggest");
+            cardContent.innerHTML = txt2;
+            holderGod.appendChild(cardClone);
+
+           
+            for (i = 0; i < 2; i++) {
+                var cardClone = document.importNode(card.content, true);
+
+                var cardContent = cardClone.getElementById("eqName");
+                var cardDesc = cardClone.getElementById("eqSuggest");
+                tp = ans[i].split("=")
+                cardContent.innerHTML = tp[0];
+                cardDesc.innerHTML = tp[1];
+
+                //Add each suggestion to the Holder
+
+                holderGod.appendChild(cardClone);
+            }
+
+            R.appendChild(ldClone);
+
+        }
+
+
+
+
+    </script>
+
+{% endblock %}
 
 
 
@@ -9,16 +239,77 @@
     
 
 <div class="ui segment" style="background-color:#3a4750;margin-left:15%;margin-right:15%;margin-top:6%; border:#303841 5px solid;">
-
-        <div class="ui huge buttons">
-            <i class="inverted circular button" onclick="modalToggleShow();" style="margin-right:5%;">Easy</i>
-            <i class="inverted circular button " onclick="GetSuggestions();">Hard</i>
-
-    </div>
+    <div class="ui inverted button" style="margin-left:10%;" onclick="getRand();">Random</div>
+    <div class="ui inverted button" style="margin-left:10%;" onclick="getLinear();">Linear</div>
+    <div class="ui inverted button" style="margin-left:10%;" onclick="getQuad();">Quadratic</div>
 </div>
 
 <div class="ui placeholder segment" style="margin-top:1%;margin-left:15%;margin-right:15%;margin-bottom:5%; border:#303841 5px solid;background-color:#e6e6d4;" id="results">
 
 </div>
+
+
+<template id="suggestions_2">
+    <div class="ui raised card link" style="width:400px;height:200px;">
+        <div class="content">
+            <div class="header" id="eqName"></div>
+            <div class="description" id="eqSuggest">
+
+            </div>
+        </div>
+        <div class="content">
+            <i class="green check circle outline icon"></i>
+        </div>
+        <div id="hiddenContent" style="display:none;"></div>
+    </div>
+</template>
+
+<template id="suggestions">
+    <div class="ui raised card link" onclick="getAnswers(this);">
+        <div class="content">
+            <div class="header" id="eqName"></div>
+            <div class="description" id="eqSuggest">
+
+            </div>
+        </div>
+        <div class="content">
+            <i class="green check circle outline icon"></i>
+        </div>
+        <div id="hiddenContent" style="display:none;"></div>
+    </div>
+</template>
+
+<template id="suggestions3">
+    <div class="ui raised card link">
+        <div class="content">
+            <div class="header" id="eqName"></div>
+            <div class="description" id="eqSuggest">
+
+            </div>
+        </div>
+        <div class="content">
+            <i class="green check circle outline icon"></i>
+        </div>
+        <div id="hiddenContent" style="display:none;"></div>
+    </div>
+</template>
+
+<template id="cardHolderTemp">
+    <div class="ui stackable cards" id="cardHolder" style="margin-left:30%;margin-right:30%;">
+
+    </div>
+</template>
+
+<template id="cardHolderTemp2">
+    <div class="ui stackable cards" id="cardHolder">
+
+    </div>
+</template>
+
+<template id="answers">
+    <div class="ui three cards" id="cardHolder" style="margin-left:10%;margin-right:10%;">
+
+    </div>
+</template>
 
     {% endblock %}

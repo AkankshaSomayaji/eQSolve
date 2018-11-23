@@ -10,17 +10,50 @@
         if (this.readyState == 4 && this.status == 200) {
             txt = this.responseText;
 
-            //Add the loading symbol
             var R = document.getElementById("results");
             while (R.firstChild) {
                 R.removeChild(R.firstChild);
             } //Remove  - no results
 
+            //Error checking
+            if (txt == "Error") {
+                var pContent = document.getElementById("pt_error");
+                var R = document.querySelector("#results");
+                var clone = document.importNode(pContent.content, true);
+
+                var chtxd = clone.getElementById("pt_id");
+                chtxd.innerHTML = "Failed: Please Try again later"
+
+                R.appendChild(clone);
+                return;
+            }
+
+
+
+            //Add the loading symbol
+
             var ld = document.getElementById("answers");
             var ldClone = document.importNode(ld.content, true);
+            holderGod = ldClone.getElementById("cardHolder");
 
-            var data = ldClone.getElementById("ansdata");
-            data.innerHTML = txt;
+            console.log(txt);
+            ans = txt.split(",")
+
+
+            var card = document.getElementById("suggestions_2");
+            for (i = 0; i < 2; i++) {
+                var cardClone = document.importNode(card.content, true);
+
+                var cardContent = cardClone.getElementById("eqName");
+                var cardDesc = cardClone.getElementById("eqSuggest");
+                tp = ans[i].split("=")
+                cardContent.innerHTML = tp[0];
+                cardDesc.innerHTML = tp[1];
+
+                //Add each suggestion to the Holder
+
+                holderGod.appendChild(cardClone);
+            }
 
             R.appendChild(ldClone);
         }
@@ -29,12 +62,14 @@
     var pContent = document.getElementById("pt");
     var R = document.querySelector("#results");
     var clone = document.importNode(pContent.content, true);
+
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = putAnswers
 
     R.appendChild(clone);
 
-    function GetAnswers(str) {
+    function GetAnswers() {
         //This function is to call results server code and get answers - str is string
 
 
@@ -51,8 +86,10 @@
 
         //GET ANSWERS
         eqtxt = document.getElementById("eq");
+        //console.log(eqtxt.value);
         req.open('POST', "solveeq", true);
-        req.send("eqn=" + eqtxt.innerHTML);
+
+        req.send(eqtxt.value);
 
 
 
@@ -131,25 +168,58 @@
         modalToggleHide();
     }
 
+    $(document).ready(function () {
+        $('.item.eqtb').click(function () {
+            $('.hcftb').removeClass('active')
+            $('.eqtb').addClass("active");
+        });
+    });
 
+    $(document).ready(function () {
+        $('.item.hcftb').click(function () {
+            $('.eqtb').removeClass('active')
+            $('.hcftb').addClass("active");
+        });
+    });
 
 </script>
 {% endblock %}
 
 {%block content%}
 
+<div class="ui compact tabular menu" style="margin-left:15%;margin-right:35%;margin-top:5%;">
+    <div class="ui item link active eqtb tb" style="background-color:#3a4750;color:wheat">
+        Equations
+    </div>
+    <div class="ui item link hcftb tb" style="background-color:#3a4750;;color:wheat">
+        HCF/LCF
+    </div>
+</div>
 
-<div class="ui segment" style="background-color:#3a4750;margin-left:15%;margin-right:15%;margin-top:6%; border:#303841 5px solid;">
+<div class="ui active tab segment eqtb tb" style="background-color:#3a4750;margin-left:15%;margin-right:15%;margin-top:0%; border:#303841 5px solid;">
     <div class="ui fluid icon inverted large input">
         <input type="text" id="eq" placeholder="Enter your Equations here" style="background-color:#3a4750;color:#eeeeee;">
         <div class="ui huge buttons">
             <i class="inverted circular camera link icon button" onclick="modalToggleShow();" style="margin-right:5%;"></i>
             <i class="inverted circular chevron circle right link icon button " onclick="GetAnswers();"></i>
         </div>
+
     </div>
+    
 </div>
 
-<div></div>
+<div class="ui tab segment hcftb tb" style="background-color:#3a4750;margin-left:15%;margin-right:15%;margin-top:0%; border:#303841 5px solid;">
+    <div class="ui fluid icon inverted large input">
+        <input type="text" id="eq" placeholder="Enter your Equations here" style="background-color:#3a4750;color:#eeeeee;">
+        <div class="ui huge buttons">
+            <i class="inverted circular camera link icon button" onclick="modalToggleShow();" style="margin-right:5%;"></i>
+            <i class="inverted circular chevron circle right link icon button " onclick="GetSuggestions();"></i>
+        </div>
+
+    </div>
+
+</div>
+
 
 <div class="ui placeholder segment" style="margin-top:1%;margin-left:15%;margin-right:15%;margin-bottom:5%; border:#303841 5px solid;background-color:#e6e6d4;" id="results">
 
@@ -159,7 +229,7 @@
 <div class="ui modal">
     <div class="header">Upload an Image</div>
     <div class="content">
-        <form class="ui form">
+        <form class="ui form" enctype=multipart/form-data action="{{url_for('upload_file')}}" method="post">
             <div class="field">
                 <label>
                     Select Image File
@@ -175,18 +245,25 @@
 <template id="pt">
     <h2 class="ui icon header">
         <i class="superscript icon"></i>
-        <div class="content">
+        <div class="content" id="pt_id">
+            Nothing for Now
+        </div>
+    </h2>
+</template>
+
+<template id="pt_error">
+    <h2 class="ui icon header">
+        <i class="red bug icon"></i>
+        <div class="content" id="pt_id">
             Nothing for Now
         </div>
     </h2>
 </template>
 
 <template id="answers">
-    <h2 class="ui icon header">
-        <div class="content" id="ansdata">
-            
-        </div>
-    </h2>
+    <div class="ui two cards" id="cardHolder" style="margin-left:10%;margin-right:10%;">
+
+    </div>
 </template>
 
 <template id="suggestions">
@@ -199,6 +276,21 @@
         </div>
         <div class="content">
             <i class="share icon"></i>
+        </div>
+
+    </div>
+</template>
+
+<template id="suggestions_2">
+    <div class="ui raised card link">
+        <div class="content">
+            <div class="header" id="eqName"></div>
+            <div class="description" id="eqSuggest">
+
+            </div>
+        </div>
+        <div class="content">
+            <i class="green check circle outline icon"></i>
         </div>
 
     </div>

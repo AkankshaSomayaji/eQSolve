@@ -31,7 +31,13 @@
     <Compile Include="eQSolve\Config.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eQSolve\ImageToText.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="eQSolve\models.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eQSolve\ocr.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eQSolve\server.py" />

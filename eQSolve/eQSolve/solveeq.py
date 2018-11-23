@@ -9,6 +9,8 @@ import re
 import numpy as np
 import math
 
+
+
 def quad(eq):
 	#print(eq)
 	#ax2+bx+c=0
@@ -23,7 +25,7 @@ def quad(eq):
 		img='i'
 	sol1=(-b-math.sqrt(d))/(2*a)
 	sol2=(-b+math.sqrt(d))/(2*a)
-	return('x1='+str(sol1)+img+'  x2='+str(sol2)+img)
+	return('x1='+str(sol1)+img+',x2='+str(sol2)+img)
 
 
 def getvars(eq):
@@ -116,7 +118,7 @@ def calcy(eq1,eq2):
 		
 	a = np.array([a1, a2])
 	x = np.linalg.solve(a, b)
-	return('x='+str(x[0])+'  y='+str(x[1]))
+	return('x='+str(x[0])+',y='+str(x[1]))
 	
 
 #getvars('2.45y-7+r-3y=4')	

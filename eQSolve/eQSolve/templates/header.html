@@ -21,13 +21,12 @@
 </head>
 <body style="background: {{backgroundColor}}">
     <!--style="background-color:#3c6382;" style="background-color:#ff7f50"kyoto=> #c21500, #ffc500 , sunrise-second color = #f09819//linear-gradient(to top,#ff512f,#ff7f50 );-->
-    <div class="ui inverted fixed segment" style="background-color:{{headerColor}};margin-top:-30;">
+    <div class="ui inverted fixed segment" style="background-color:{{headerColor}};margin-top:-30;" >
         <div id="header" style="background-color:{{headerColor}};" class="ui secondary inverted large menu">
             <div class="ui item"><img src="/static/images/logo.png" /></div>
             <a class="green item bt {{'active' if active_page == 'home' else ''}}" href="{{url_for('index')}}">Home</a>
             <a class="green item bt {{'active' if active_page == 'solve' else ''}}" href="{{url_for('solve')}}">Solve</a>
-            <a class="green item bt {{'active' if active_page == 'ranking' else ''}}" href="#">Ranking</a>
-            <a class="green item bt {{'active' if active_page == 'explore' else ''}}" href="#">Explore</a>
+            <a class="green item bt {{'active' if active_page == 'explore' else ''}}" href="{{url_for('explore')}}">Explore</a>
             <a class="green item bt {{'active' if active_page == 'about' else ''}}" href="{{url_for('about')}}">About</a>
             <div class="right item">
                 <div class="ui search">
@@ -45,9 +44,9 @@
                 <div class="ui container">
                     eQSolve - {{year}}. All Rights Reserved
                 </div>
-            </div>
-
         </div>
+
+    </div>
 
     {% block javascript %} {% endblock %}
 
