@@ -17,7 +17,7 @@
     <div class="column">
         <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:10%;margin-right:15%;">
             <h2 class="ui icon header">
-                <i class="superscript icon"></i>
+                <a  href="{{url_for('solve')}}"><i class="superscript icon black"></i></a>
                 <div class="content">
                     Equations
                     <div class="sub header">
@@ -30,8 +30,8 @@
     <div class="column">
         <div class="ui segment " style="background-color:#f9ad8d; border:black 5px solid; margin-left:15%;margin-right:15%;">
             <h2 class="ui icon header">
-                <i class="photo icon"></i>
-                <div class="content">
+                <a  href="{{url_for('solve')}}" onclick="modalToggleShow();"><i class="photo icon" ></i></a>
+                <div class="content" >
                     Photo-Solve
                     <div class="sub header">
                         Upload a photo of the equation to solve!
